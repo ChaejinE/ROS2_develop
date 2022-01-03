@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  talker:
+    image: ros:eloquent-display
+    command: ros2 run demo_nodes_cpp talker
+    environment:
+            - DISPLAY=${DISPLAY}
+    volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode : host
+  listener:
+    image: ros:eloquent-display
+    command: ros2 run demo_nodes_cpp listener
+    environment:
+            - DISPLAY=${DISPLAY}
+    volumes:
+            - /tmp/.X11-unix:/tmp/.X11-unix
+    network_mode : host
+    depends_on:
+      - talker
